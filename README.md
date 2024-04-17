@@ -68,15 +68,30 @@ After creating your new Laravel application you can include the Voyager package 
 composer require tcg/voyager
 ```
 
-### 4. Add the DB Credentials & APP_URL
+### 4. Add the .env
 
 Next make sure to create a new database and add your database credentials to your .env file:
 
 ```
-DB_HOST=localhost
-DB_DATABASE=homestead
-DB_USERNAME=homestead
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost
+APP_BUILD_TARGET=development
+
+LOG_CHANNEL=stderr
+
+LOG_STDERR_FORMATTER=Monolog\Formatter\JsonFormatter
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=phper
 DB_PASSWORD=secret
+
+WEB_PUBLISHED_PORT=80
+DB_PUBLISHED_PORT=3306
+MAILHOG_PUBLISHED_PORT=8025
 ```
 
 You will also want to update your website URL inside of the `APP_URL` variable inside the .env file:
