@@ -1,5 +1,4 @@
 install:
-	@make build
 	@make up
 	docker compose exec app composer install
 	docker compose exec app cp .env.example .env
