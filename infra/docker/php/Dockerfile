@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-bullseye AS base
+FROM php:8.3-fpm-bullseye AS base
 
 WORKDIR /workspace
 
@@ -22,6 +22,14 @@ RUN apt-get update \
     libzip-dev \
     libicu-dev \
     libonig-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libgd-dev \
+    jpegoptim optipng pngquant gifsicle \
+    libxml2-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen en_US.UTF-8 \
@@ -31,8 +39,12 @@ RUN apt-get update \
     pdo_mysql \
     zip \
     bcmath \
+    exif \
   && composer config -g process-timeout 3600 \
   && composer config -g repos.packagist composer https://packagist.org
+
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
 
 FROM base AS development
 
